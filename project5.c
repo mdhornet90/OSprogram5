@@ -5,7 +5,7 @@
 struct file
 {
     unsigned int permissions[3];
-    unsigned int name[20];
+    unsigned int name[28];
     int nameSize;
 };
 
@@ -76,13 +76,14 @@ int main (void)
 void convert(struct file *tFile, char tData[256])
 {
     struct file *temp = tFile;
-    int i, j;
+    int i, j, k;
 
     for ( i = 0, j = 0; i < 9; i += 3, j++)
         temp->permissions[j] = ((tData[i] & 1) << 2) | ((tData[i + 1] & 1) << 1) | ((tData[i + 2] & 1) << 0);
 
     for ( i = 9, j = 0; i <= temp->nameSize; i += 9, j++)
-        temp->name[j] = ((tData[i] & 1) << 8) | ((tData[i + 1] & 1) << 7) | ((tData[i + 2] & 1) << 6) | ((tData[i + 3] & 1) << 5) |
+        for ( k = 8; k >= 0; k-- )
+            temp->name[j] = ((tData[i] & 1) << 8) | ((tData[i + 1] & 1) << 7) | ((tData[i + 2] & 1) << 6) | ((tData[i + 3] & 1) << 5) |
                         ((tData[i + 4] & 1) << 4) | ((tData[i + 5] & 1) << 3) | ((tData[i + 6] & 1) << 2) | ((tData[i + 7] & 1) << 1) |
                         ((tData[i + 8] & 1) << 0);
 
