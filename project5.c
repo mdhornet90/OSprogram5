@@ -5,7 +5,7 @@
 struct file
 {
     unsigned int permissions[3];
-    unsigned int name[20];
+    unsigned int name[28];
     int nameSize;
 };
 
